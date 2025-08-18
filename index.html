@@ -1,238 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NA Collective – Where Art Meets Frequency</title>
-    <!-- Tailwind via CDN for rapid styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-..."
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <style>
-      /* Custom styles can live here */
-      /* Hide the cart badge when there are no items */
-      #cart-count:empty {
-        display: none;
-      }
-    </style>
-  </head>
-  <body class="font-sans antialiased bg-gray-50 text-gray-900">
-    <!-- Navigation bar -->
-    <nav class="bg-white shadow fixed top-0 left-0 w-full z-50">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex justify-between items-center h-16">
-          <a href="index.html" class="text-xl font-bold text-gray-900">
-            NA Collective
-          </a>
-          <div class="hidden md:flex space-x-6 text-sm font-medium">
-            <a href="about.html" class="hover:text-indigo-600">About</a>
-            <a href="artists.html" class="hover:text-indigo-600">Artists</a>
-            <a href="music.html" class="hover:text-indigo-600">Music</a>
-            <a href="shop.html" class="hover:text-indigo-600">Merch</a>
-            <a href="submit.html" class="hover:text-indigo-600">Submit</a>
-            <a href="contact.html" class="hover:text-indigo-600">Contact</a>
-          </div>
-          <div class="flex items-center space-x-4">
-            <a href="cart.html" class="relative inline-flex items-center text-gray-700">
-              <i class="fa-solid fa-shopping-cart text-xl"></i>
-              <span
-                id="cart-count"
-                class="absolute -top-2 -right-3 bg-red-600 text-white text-xs rounded-full px-1"
-              ></span>
-            </a>
-            <button
-              id="mobile-menu-button"
-              class="md:hidden inline-flex items-center justify-center p-2 text-gray-700 hover:text-indigo-600 focus:outline-none"
-            >
-              <span class="sr-only">Open main menu</span>
-              <i class="fa-solid fa-bars text-xl"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- Mobile menu -->
-      <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-1">
-        <a
-          href="about.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >About</a
-        >
-        <a
-          href="artists.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >Artists</a
-        >
-        <a
-          href="music.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >Music</a
-        >
-        <a
-          href="shop.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >Merch</a
-        >
-        <a
-          href="submit.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >Submit</a
-        >
-        <a
-          href="contact.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >Contact</a
-        >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NA Collective — Where Art Meets Frequency</title>
+  <meta name="description" content="NA Collective: Nascent (Noah Pullen) & Hamudi (Ahmed Awad). Music, visuals, and frequency.">
+  <style>
+    :root{
+      --bg:#0b0b0f;--card:#12121a;--muted:#9aa3b2;--text:#e8ecf1;--accent:#7ee787;
+      --ring:#2dd4bf;--shadow:0 10px 30px rgba(0,0,0,.35)
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(1200px 600px at 80% -20%, #1a1a26 0%, #0b0b0f 60%), var(--bg);color:var(--text);font:500 16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin-inline:auto;padding:24px}
+    nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:34px;height:34px;border-radius:8px;background:conic-gradient(from 0deg,#7ee787,#2dd4bf,#60a5fa,#a78bfa,#7ee787)}
+    .navlinks a{padding:10px 14px;border-radius:10px;color:#cbd5e1}
+    .navlinks a:hover{background:#1a1a26}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:24px;border:1px solid #1f2937;border-radius:18px;background:linear-gradient(180deg,#10101a,transparent)}
+    .hero h1{font-size:40px;line-height:1.1;margin:0 0 10px}
+    .hero p{color:var(--muted);margin:0 0 16px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:12px 16px;border-radius:12px;border:1px solid #1f2937;background:#151522;color:#e5e7eb;box-shadow:var(--shadow)}
+    .btn:hover{border-color:#2b3444;transform:translateY(-1px)}
+    .btn.accent{background:linear-gradient(90deg,#16a34a,#059669);border:0}
+    h2{font-size:22px;margin:32px 0 14px}
+    .grid{display:grid;gap:16px}
+    .grid.cards{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+    .card img{display:block;width:100%;height:220px;object-fit:cover}
+    .card .pad{padding:14px}
+    .sub{color:var(--muted);font-size:14px}
+    .artists{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+    .artist{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid #1f2937;border-radius:16px;background:#10101a}
+    .artist img{width:86px;height:86px;border-radius:12px;object-fit:cover}
+    .about{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:center;border:1px solid #1f2937;border-radius:18px;padding:18px;background:#0f1020}
+    .ab-controls{background:#0b0c18;border:1px solid #1f2937;border-radius:14px;padding:14px}
+    .row{display:flex;align-items:center;gap:12px;margin:8px 0}
+    .row label{min-width:110px;color:#c2cbe0}
+    input[type=range]{width:100%}
+    canvas{width:100%;height:220px;border-radius:12px;background:#0a0b14}
+    footer{color:#94a3b8;font-size:14px;padding:28px 0;text-align:center}
+    .badge{display:inline-block;padding:3px 8px;border-radius:999px;background:#142016;border:1px solid #1f3b2a;color:#a7f3d0;font-size:12px;margin-left:6px}
+    @media (max-width:900px){.hero,.about{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><div class="logo"></div><strong>NA Collective</strong></div>
+      <div class="navlinks">
+        <a href="index.html">Home</a>
+        <a href="artists.html">Artists</a>
+        <a href="music.html">Music</a>
+        <!-- Hide merch for now or point to coming soon -->
+        <!-- <a href="merch.html">Merch</a> -->
+        <a href="#about">About</a>
       </div>
     </nav>
 
-    <!-- Hero section -->
-    <header class="relative pt-20">
-      <div
-        class="relative bg-cover bg-center h-[60vh] flex items-center justify-center"
-        style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1600&q=80');"
-      >
-        <div class="absolute inset-0 bg-black opacity-50"></div>
-        <div class="relative z-10 text-center px-4">
-          <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">
-            Where Art Meets Frequency
-          </h1>
-          <p class="text-lg md:text-2xl text-gray-200 max-w-xl mx-auto mb-6">
-            Elevate your sound and vision with NA Collective – a hub for
-            artists, music lovers and creativity.
-          </p>
-          <div class="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4">
-            <a
-              href="music.html"
-              class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md font-medium"
-              >Explore Music</a
-            >
-            <a
-              href="shop.html"
-              class="bg-white hover:bg-gray-100 text-indigo-600 px-6 py-3 rounded-md font-medium"
-              >Shop Merch</a
-            >
+    <section class="hero">
+      <div>
+        <h1>Where Art Meets Frequency<span class="badge">Interactive</span></h1>
+        <p>NA Collective is <strong>Nascent (Noah Pullen)</strong> and <strong>Hamudi (Ahmed Awad)</strong> — building sound and visuals rooted in Iowa City, since 2018.</p>
+        <div class="cta">
+          <a class="btn accent" href="music.html">Listen Now</a>
+          <a class="btn" href="artists.html">Meet the Artists</a>
+          <a class="btn" href="https://open.spotify.com/artist/6ys1HX75sDG7Bf4izo8t6g" target="_blank" rel="noopener">Spotify</a>
+        </div>
+      </div>
+      <div class="card"><img src="images/nascent2.jpeg" alt="Noah Pullen in pink light" /></div>
+    </section>
+
+    <h2>Latest Releases</h2>
+    <div class="grid cards">
+      <a class="card" href="https://open.spotify.com/artist/6ys1HX75sDG7Bf4izo8t6g" target="_blank" rel="noopener">
+        <img src="images/take_my_time.jpeg" alt="Take My Time cover" />
+        <div class="pad"><strong>Take My Time</strong><div class="sub">Nascent × Hamudi · Single</div></div>
+      </a>
+      <a class="card" href="https://open.spotify.com/artist/6ys1HX75sDG7Bf4izo8t6g" target="_blank" rel="noopener">
+        <img src="images/dominoes.jpeg" alt="Dominoes cover" />
+        <div class="pad"><strong>Dominoes</strong><div class="sub">Nascent × Hamudi · Single</div></div>
+      </a>
+      <a class="card" href="https://open.spotify.com/artist/6ys1HX75sDG7Bf4izo8t6g" target="_blank" rel="noopener">
+        <img src="images/limitless_pursuit.png" alt="Limitless Pursuit cover" />
+        <div class="pad"><strong>Limitless Pursuit</strong><div class="sub">Nascent × Hamudi · Single</div></div>
+      </a>
+    </div>
+
+    <h2>Artists</h2>
+    <div class="artists">
+      <div class="artist">
+        <img src="images/nascent2.jpeg" alt="Noah Pullen portrait" />
+        <div>
+          <strong>Noah Pullen (Nascent)</strong>
+          <div class="sub">Producer/Artist. Pink-light precision, detail-obsessed.</div>
+        </div>
+      </div>
+      <div class="artist">
+        <img src="images/hamudi1.jpeg" alt="Ahmed Awad portrait" />
+        <div>
+          <strong>Ahmed Awad (Hamudi)</strong>
+          <div class="sub">Vocalist/Artist. Smoke-smooth cadences and intent.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="about">About — Frequency Lab</h2>
+    <section class="about">
+      <div>
+        <p class="sub">We grew into a collective in <strong>2018</strong>, collaborating in Iowa City with artists like <strong>SidTiva</strong> and <strong>M.E.D.</strong> Our work bends language, geometry, and sound into intention. Try the lab → tune a frequency, watch the visual respond.</p>
+        <div class="ab-controls">
+          <div class="row">
+            <label for="freq">Frequency (Hz)</label>
+            <input id="freq" type="range" min="80" max="1200" value="432" />
+            <span id="fread" class="sub">432 Hz</span>
           </div>
+          <div class="row">
+            <label for="gain">Intensity</label>
+            <input id="gain" type="range" min="0" max="100" value="30" />
+            <span id="gread" class="sub">0.30</span>
+          </div>
+          <button id="toggle" class="btn" type="button">▶ Play Tone</button>
         </div>
       </div>
-    </header>
+      <canvas id="scope" width="900" height="260" aria-label="Oscilloscope visualization"></canvas>
+    </section>
 
-    <!-- Sections preview -->
-    <main class="max-w-7xl mx-auto px-4 py-16 space-y-24">
-      <!-- Music Preview Section -->
-      <section>
-        <div class="mb-6 flex items-center justify-between">
-          <h2 class="text-3xl font-bold">Latest Releases</h2>
-          <a href="music.html" class="text-indigo-600 hover:underline">See all</a>
-        </div>
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          id="music-preview"
-        ></div>
-      </section>
+    <footer>© <span id="yr"></span> NA Collective • Iowa City</footer>
+  </div>
 
-      <!-- Merch Preview Section -->
-      <section>
-        <div class="mb-6 flex items-center justify-between">
-          <h2 class="text-3xl font-bold">Featured Merch</h2>
-          <a href="shop.html" class="text-indigo-600 hover:underline">Shop all</a>
-        </div>
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          id="merch-preview"
-        ></div>
-      </section>
+  <script>
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
 
-      <!-- Artists Preview Section -->
-      <section>
-        <div class="mb-6 flex items-center justify-between">
-          <h2 class="text-3xl font-bold">Featured Artists</h2>
-          <a href="artists.html" class="text-indigo-600 hover:underline">Meet them</a>
-        </div>
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          id="artists-preview"
-        ></div>
-      </section>
-    </main>
+    // WebAudio + simple oscilloscope
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let ctx, osc, gain, running = false;
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-200 py-8">
-      <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div>
-          <h3 class="text-lg font-semibold mb-4">About NA Collective</h3>
-          <p class="text-sm">
-            NA Collective is a community-driven label and creative hub
-            connecting producers, visual artists, and storytellers. Our
-            mission is to elevate culture through experimental sound and
-            captivating imagery.
-          </p>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="index.html" class="hover:underline">Home</a></li>
-            <li><a href="about.html" class="hover:underline">About</a></li>
-            <li><a href="artists.html" class="hover:underline">Artists</a></li>
-            <li><a href="music.html" class="hover:underline">Music</a></li>
-            <li><a href="shop.html" class="hover:underline">Merch</a></li>
-            <li><a href="submit.html" class="hover:underline">Submit</a></li>
-            <li><a href="contact.html" class="hover:underline">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Stay Connected</h3>
-          <ul class="flex space-x-4 text-xl">
-            <li>
-              <a
-                href="#"
-                aria-label="Instagram"
-                class="hover:text-indigo-400"
-              >
-                <i class="fa-brands fa-instagram"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                aria-label="Twitter"
-                class="hover:text-indigo-400"
-              >
-                <i class="fa-brands fa-x-twitter"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                aria-label="YouTube"
-                class="hover:text-indigo-400"
-              >
-                <i class="fa-brands fa-youtube"></i>
-              </a>
-            </li>
-          </ul>
-          <p class="text-sm mt-4">
-            &copy; <span id="year"></span> NA Collective. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
+    const f = document.getElementById('freq');
+    const g = document.getElementById('gain');
+    const fr = document.getElementById('fread');
+    const gr = document.getElementById('gread');
+    const btn = document.getElementById('toggle');
 
-    <script src="script.js"></script>
-    <script>
-      // dynamic year in footer
-      document.getElementById('year').textContent = new Date().getFullYear();
-      // handle mobile menu toggle
-      const mobileBtn = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-      mobileBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-    </script>
-  </body>
+    const canvas = document.getElementById('scope');
+    const c = canvas.getContext('2d');
+    const analyser = new (window.AudioContext || window.webkitAudioContext)().createAnalyser();
+    analyser.fftSize = 2048;
+
+    function updateLabels(){
+      fr.textContent = f.value + ' Hz';
+      gr.textContent = (g.value/100).toFixed(2);
+    }
+    updateLabels();
+
+    function start(){
+      if (running) return;
+      ctx = new AudioCtx();
+      osc = ctx.createOscillator();
+      gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = +f.value;
+      gain.gain.value = g.value/100;
+      osc.connect(gain).connect(ctx.destination);
+
+      // analyser for viz
+      const tap = ctx.createGain();
+      osc.connect(tap);
+      const ana = ctx.createAnalyser();
+      ana.fftSize = 1024;
+      tap.connect(ana);
+
+      osc.start();
+      running = true;
+      btn.textContent = '⏸ Pause Tone';
+
+      // draw
+      const data = new Uint8Array(ana.frequencyBinCount);
+      (function draw(){
+        if(!running) return;
+        requestAnimationFrame(draw);
+        ana.getByteTimeDomainData(data);
+        c.clearRect(0,0,canvas.width,canvas.height);
+        c.strokeStyle = '#7ee787'; c.lineWidth = 2; c.beginPath();
+        const mid = canvas.height/2;
+        for(let x=0;x<canvas.width;x++){
+          const idx = Math.floor(x / canvas.width * data.length);
+          const y = ((data[idx]-128)/128) * (canvas.height*0.4) + mid;
+          x===0 ? c.moveTo(x,y) : c.lineTo(x,y);
+        }
+        c.stroke();
+      })();
+    }
+
+    function stop(){
+      if(!running) return;
+      osc.stop(); ctx.close();
+      running = false;
+      btn.textContent = '▶ Play Tone';
+      c.clearRect(0,0,canvas.width,canvas.height);
+    }
+
+    f.addEventListener('input', ()=>{ updateLabels(); if(osc) osc.frequency.value = +f.value; });
+    g.addEventListener('input', ()=>{ updateLabels(); if(gain) gain.gain.value = g.value/100; });
+    btn.addEventListener('click', ()=> running ? stop() : start());
+  </script>
+</body>
 </html>
