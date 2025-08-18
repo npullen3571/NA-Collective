@@ -55,8 +55,39 @@
         <a href="index.html">Home</a>
         <a href="artists.html">Artists</a>
         <a href="music.html">Music</a>
-        <!-- Hide merch for now or point to coming soon -->
-        <!-- <a href="merch.html">Merch</a> -->
+    <!-- Merchandise Section -->
+<section class="merchandise">
+  <h2>Merchandise</h2>
+  <div class="merch-grid">
+    <div class="merch-item coming-soon">
+      <img src="images/coming_soon.png" alt="Merchandise coming soon">
+      <h3>Coming Soon</h3>
+      <p>Exclusive NA Collective gear will be available soon. Stay tuned!</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .merch-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .merch-item.coming-soon {
+    padding: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    background: #fafafa;
+  }
+
+  .merch-item.coming-soon img {
+    max-width: 200px;
+    margin-bottom: 10px;
+    opacity: 0.6;
+  }
+</style>
         <a href="#about">About</a>
       </div>
     </nav>
