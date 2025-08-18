@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artists – NA Collective</title>
+    <!--
+      This page has been handcrafted to replace the placeholder artist roster
+      previously on na‑collective.vercel.app.  It introduces the founding
+      members of the Iowa‑based NA Collective and briefly tells the story
+      behind the collective.  Simple inline styles are used instead of
+      referencing an external stylesheet so that everything lives in one
+      document.  Feel free to extract these styles into a CSS file if you
+      integrate this into a larger project.
+    -->
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --panel: #161616;
+        --accent: #e72e77;
+        --text: #f5f5f5;
+        --muted: #9b9b9b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+          Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      header {
+        background: var(--panel);
+        border-bottom: 1px solid #222;
+      }
+
+      nav {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+      }
+
+      nav .logo {
+        font-weight: bold;
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 1.25rem;
+      }
+
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      nav ul li a {
+        color: var(--text);
+        text-decoration: none;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+      }
+
+      nav ul li a:hover,
+      nav ul li a.active {
+        opacity: 1;
+        color: var(--accent);
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+
+      h1 {
+        margin-top: 0;
+        font-size: 2.5rem;
+      }
+
+      .artist {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+        background: var(--panel);
+        padding: 1rem;
+        border-radius: 8px;
+      }
+
+      .artist img {
+        width: 220px;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .artist h2 {
+        margin-top: 0;
+        margin-bottom: 0.3rem;
+        font-size: 1.75rem;
+        color: var(--accent);
+      }
+
+      .artist p {
+        margin: 0.3rem 0 0;
+        color: var(--muted);
+      }
+
+      .about {
+        background: var(--panel);
+        padding: 1.5rem;
+        border-radius: 8px;
+      }
+
+      .about h2 {
+        margin-top: 0;
+        font-size: 2rem;
+        color: var(--accent);
+      }
+
+      .about p {
+        color: var(--muted);
+      }
+
+      footer {
+        background: var(--panel);
+        border-top: 1px solid #222;
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html" class="logo">NA Collective</a>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="artists.html" class="active">Artists</a></li>
+          <li><a href="music.html">Music</a></li>
+          <li><a href="merch.html">Merch</a></li>
+          <li><a href="submit.html">Submit</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>Our Artists</h1>
+      <p>
+        Discover the talented creators who make up the NA Collective roster.  Each
+        member brings a unique perspective, blending influences from hip‑hop,
+        R&B, experimental electronica and beyond.
+      </p>
+      <!-- Artist: Nascent (Noah Pullen) -->
+      <section class="artist">
+        <img
+          src="images/group.jpeg"
+          alt="Artist bathed in pink light wearing sunglasses"
+        />
+        <div>
+          <h2>Noah Pullen – Nascent</h2>
+          <p>
+            Nascent is the stage name of Iowa City–based producer and vocalist
+            <strong>Noah Pullen</strong>.  With a penchant for introspective
+            lyricism and experimental beats, Nascent blurs the line between
+            electronic sound design and heartfelt storytelling.  Raised in
+            North Liberty, he began releasing music under the moniker in his
+            teens and quickly gained a local following for his forward‑thinking
+            productions and soulful hooks.  Outside of the studio he’s an
+            aspiring multimedia artist, creating visuals to accompany his
+            releases.
+          </p>
+        </div>
+      </section>
+      <!-- Artist: Hamudi (Ahmed Awad) -->
+      <section class="artist">
+        <img
+          src="images/hamudi1.jpeg"
+          alt="Artist seated in front of a NA Collective banner under pink lighting"
+        />
+        <div>
+          <h2>Ahmed Awad – Hamudi</h2>
+          <p>
+            Better known by his stage name <strong>Hamudi</strong>, Ahmed Awad
+            brings a melodic rap style rooted in his Palestinian heritage and
+            Midwestern upbringing.  His smooth delivery and knack for catchy
+            hooks complement Nascent’s production, creating a synergy that’s
+            both hypnotic and uplifting.  Hamudi’s lyrics weave between
+            bilingual rhymes, soulful melodies and introspective bars.  On
+            stage he commands attention with a magnetic presence and an ear
+            for engaging audiences of all backgrounds.
+          </p>
+        </div>
+      </section>
+      <!-- Collective Story -->
+      <section class="about">
+        <h2>About NA Collective</h2>
+        <p>
+          NA Collective began as a passion project between Nascent and Hamudi in
+          2018 when the two artists met at an open mic in Iowa City.  What
+          started as informal jam sessions soon evolved into a community for
+          musicians, visual artists and storytellers.  The duo invited
+          collaborators from across Iowa’s underground scene, including
+          experimental producer <em>SidTiva</em> and soulful vocalist
+          <em>M.E.D.</em>, nurturing a creative incubator focused on
+          authenticity and experimentation.  Today the collective continues to
+          push boundaries through music, art and live events while staying
+          deeply connected to their Midwestern roots.
+        </p>
+      </section>
+    </main>
+    <footer>
+      &copy; 2025 NA Collective.  All rights reserved.
+    </footer>
+  </body>
+</html>
