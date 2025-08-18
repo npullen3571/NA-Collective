@@ -3,178 +3,210 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Music – NA Collective</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-..."
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <title>Music Releases – NA Collective</title>
+    <!--
+      This page showcases recent releases from Nascent and Hamudi along with a
+      Spotify embed so visitors can listen without leaving the site.  The
+      structure and styling mirror the artists page to maintain a cohesive
+      look and feel across the site.
+    -->
     <style>
-      #cart-count:empty {
-        display: none;
+      :root {
+        --bg: #0a0a0a;
+        --panel: #161616;
+        --accent: #e72e77;
+        --text: #f5f5f5;
+        --muted: #9b9b9b;
       }
-      audio::-webkit-media-controls-panel {
-        background-color: #f3f4f6;
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+          Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      header {
+        background: var(--panel);
+        border-bottom: 1px solid #222;
+      }
+      nav {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+      }
+      nav .logo {
+        font-weight: bold;
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 1.25rem;
+      }
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 1.5rem;
+      }
+      nav ul li a {
+        color: var(--text);
+        text-decoration: none;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+      }
+      nav ul li a:hover,
+      nav ul li a.active {
+        opacity: 1;
+        color: var(--accent);
+      }
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+      h1 {
+        margin-top: 0;
+        font-size: 2.5rem;
+      }
+      .release {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+        background: var(--panel);
+        padding: 1rem;
+        border-radius: 8px;
+      }
+      .release img {
+        width: 220px;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      .release h2 {
+        margin-top: 0;
+        margin-bottom: 0.3rem;
+        font-size: 1.75rem;
+        color: var(--accent);
+      }
+      .release p {
+        margin: 0.3rem 0 0;
+        color: var(--muted);
+      }
+      iframe.spotify {
+        width: 100%;
+        max-width: 100%;
+        border: none;
+        margin-top: 2rem;
+        border-radius: 12px;
+      }
+      footer {
+        background: var(--panel);
+        border-top: 1px solid #222;
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.875rem;
+        color: var(--muted);
       }
     </style>
   </head>
-  <body class="font-sans antialiased bg-gray-50 text-gray-900">
-    <nav class="bg-white shadow fixed top-0 left-0 w-full z-50">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex justify-between items-center h-16">
-          <a href="index.html" class="text-xl font-bold text-gray-900">
-            NA Collective
-          </a>
-          <div class="hidden md:flex space-x-6 text-sm font-medium">
-            <a href="about.html" class="hover:text-indigo-600">About</a>
-            <a href="artists.html" class="hover:text-indigo-600">Artists</a>
-            <a href="music.html" class="text-indigo-600">Music</a>
-            <a href="shop.html" class="hover:text-indigo-600">Merch</a>
-            <a href="submit.html" class="hover:text-indigo-600">Submit</a>
-            <a href="contact.html" class="hover:text-indigo-600">Contact</a>
-          </div>
-          <div class="flex items-center space-x-4">
-            <a href="cart.html" class="relative inline-flex items-center text-gray-700">
-              <i class="fa-solid fa-shopping-cart text-xl"></i>
-              <span
-                id="cart-count"
-                class="absolute -top-2 -right-3 bg-red-600 text-white text-xs rounded-full px-1"
-              ></span>
-            </a>
-            <button
-              id="mobile-menu-button"
-              class="md:hidden inline-flex items-center justify-center p-2 text-gray-700 hover:text-indigo-600 focus:outline-none"
-            >
-              <span class="sr-only">Open main menu</span>
-              <i class="fa-solid fa-bars text-xl"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-1">
-        <a
-          href="about.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >About</a
-        >
-        <a
-          href="artists.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >Artists</a
-        >
-        <a
-          href="music.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-indigo-600"
-          >Music</a
-        >
-        <a
-          href="shop.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >Merch</a
-        >
-        <a
-          href="submit.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >Submit</a
-        >
-        <a
-          href="contact.html"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600"
-          >Contact</a
-        >
-      </div>
-    </nav>
-
-    <header class="relative pt-20">
-      <div
-        class="relative bg-cover bg-center h-64 flex items-center justify-center"
-        style="background-image: url('https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=1600&q=80');"
-      >
-        <div class="absolute inset-0 bg-black opacity-50"></div>
-        <div class="relative z-10 text-center">
-          <h1 class="text-4xl font-bold text-white mb-2">Music Releases</h1>
-          <p class="text-gray-300">Listen to our latest tracks and discover new sounds.</p>
-        </div>
-      </div>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html" class="logo">NA Collective</a>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="artists.html">Artists</a></li>
+          <li><a href="music.html" class="active">Music</a></li>
+          <li><a href="merch.html">Merch</a></li>
+          <li><a href="submit.html">Submit</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </header>
-
-    <main class="max-w-7xl mx-auto px-4 py-12">
-      <div id="music-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    <main>
+      <h1>Music Releases</h1>
+      <p>
+        Listen to our latest tracks and dive into the sonic world of NA Collective.
+        Each release is a collaboration between Nascent’s textural production and
+        Hamudi’s melodic storytelling.
+      </p>
+      <!-- Release: Take My Time -->
+      <section class="release">
+        <img
+          src="images/take_my_time.jpeg"
+          alt="Abstract collage artwork featuring soft pastel tones"
+        />
+        <div>
+          <h2>Take My Time (feat. Hamudi)</h2>
+          <p>Nascent × Hamudi • Single</p>
+          <p>
+            A slow‑burning collaboration where Nascent’s shimmering pads and
+            sub‑bass lay the foundation for Hamudi’s introspective melodies.
+            The track builds from a sparse opening into a lush chorus that
+            invites repeated listens.  Released in late 2024, it marks the duo’s
+            first official single as NA Collective.
+          </p>
+        </div>
+      </section>
+      <!-- Release: Dominoes -->
+      <section class="release">
+        <img
+          src="images/dominoes.jpeg"
+          alt="Dynamic layered collage artwork with advisory text"
+        />
+        <div>
+          <h2>Dominoes (feat. Hamudi)</h2>
+          <p>Nascent × Hamudi • Single</p>
+          <p>
+            An upbeat yet reflective track where cascading synth arpeggios
+            intersect with Hamudi’s bilingual verses.  “Dominoes” explores the
+            ripple effects of our decisions and the importance of community.
+            Infectious hooks and subtle guitar lines make this song a crowd
+            favourite during live sets.
+          </p>
+        </div>
+      </section>
+      <!-- Release: Limitless Pursuit -->
+      <section class="release">
+        <img
+          src="images/limitless_pursuit.png"
+          alt="Dark, atmospheric cover with vibrant colour accents"
+        />
+        <div>
+          <h2>Limitless Pursuit (feat. Hamudi)</h2>
+          <p>Nascent × Hamudi • Single</p>
+          <p>
+            Driven by a pulsating beat and shimmering synths, “Limitless
+            Pursuit” captures the duo at their most triumphant.  The song
+            celebrates breaking boundaries and chasing your dreams with
+            relentless passion.  Its anthemic chorus and resonant bassline
+            showcase the collective’s growth since their inception in 2018.
+          </p>
+        </div>
+      </section>
+      <h2 style="color: var(--accent);">Listen on Spotify</h2>
+      <p>
+        Prefer to stream?  Use the embedded player below to explore more music
+        from Nascent and Hamudi, or open the duo’s page on Spotify.
+      </p>
+      <iframe
+        class="spotify"
+        style="height: 380px;"
+        src="https://open.spotify.com/embed/artist/6ys1HX75sDG7Bf4izo8t6g?utm_source=generator"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-200 py-8">
-      <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div>
-          <h3 class="text-lg font-semibold mb-4">About NA Collective</h3>
-          <p class="text-sm">
-            NA Collective is a community-driven label and creative hub
-            connecting producers, visual artists, and storytellers. Our
-            mission is to elevate culture through experimental sound and
-            captivating imagery.
-          </p>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="index.html" class="hover:underline">Home</a></li>
-            <li><a href="about.html" class="hover:underline">About</a></li>
-            <li><a href="artists.html" class="hover:underline">Artists</a></li>
-            <li><a href="music.html" class="hover:underline text-indigo-300">Music</a></li>
-            <li><a href="shop.html" class="hover:underline">Merch</a></li>
-            <li><a href="submit.html" class="hover:underline">Submit</a></li>
-            <li><a href="contact.html" class="hover:underline">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Stay Connected</h3>
-          <ul class="flex space-x-4 text-xl">
-            <li>
-              <a
-                href="#"
-                aria-label="Instagram"
-                class="hover:text-indigo-400"
-              >
-                <i class="fa-brands fa-instagram"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                aria-label="Twitter"
-                class="hover:text-indigo-400"
-              >
-                <i class="fa-brands fa-x-twitter"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                aria-label="YouTube"
-                class="hover:text-indigo-400"
-              >
-                <i class="fa-brands fa-youtube"></i>
-              </a>
-            </li>
-          </ul>
-          <p class="text-sm mt-4">
-            &copy; <span id="year"></span> NA Collective. All rights reserved.
-          </p>
-        </div>
-      </div>
+    <footer>
+      &copy; 2025 NA Collective.  All rights reserved.
     </footer>
-
-    <script src="script.js"></script>
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-      const mobileBtn = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-      mobileBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-    </script>
   </body>
 </html>
