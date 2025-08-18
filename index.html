@@ -11,7 +11,7 @@
       --ring:#2dd4bf;--shadow:0 10px 30px rgba(0,0,0,.35)
     }
     *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(1200px 600px at 80% -20%, #1a1a26 0%, #0b0b0f 60%), var(--bg);color:var(--text);font:500 16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+    body{margin:0;background:radial-gradient(1200px 600px at 80% -20%, #1a1a26 0%, #0b0b0f 60%), var(--bg);color:var(--text);font:500 16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;overflow-x:hidden}
     a{color:inherit;text-decoration:none}
     .wrap{max-width:1100px;margin-inline:auto;padding:24px}
     nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
@@ -23,27 +23,32 @@
     .hero h1{font-size:40px;line-height:1.1;margin:0 0 10px}
     .hero p{color:var(--muted);margin:0 0 16px}
     .cta{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{padding:12px 16px;border-radius:12px;border:1px solid #1f2937;background:#151522;color:#e5e7eb;box-shadow:var(--shadow)}
-    .btn:hover{border-color:#2b3444;transform:translateY(-1px)}
+    .btn{padding:12px 16px;border-radius:12px;border:1px solid #1f2937;background:#151522;color:#e5e7eb;box-shadow:var(--shadow);transition:transform .15s ease, box-shadow .15s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(0,0,0,.45)}
     .btn.accent{background:linear-gradient(90deg,#16a34a,#059669);border:0}
     h2{font-size:22px;margin:32px 0 14px}
     .grid{display:grid;gap:16px}
     .grid.cards{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
-    .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-    .card img{display:block;width:100%;height:220px;object-fit:cover}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);position:relative}
+    .card img{display:block;width:100%;height:220px;object-fit:cover;filter:saturate(1);transition:transform .25s ease, filter .25s ease}
+    .card:hover img{transform:scale(1.04);filter:saturate(1.2)}
     .card .pad{padding:14px}
     .sub{color:var(--muted);font-size:14px}
-    .artists{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-    .artist{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid #1f2937;border-radius:16px;background:#10101a}
-    .artist img{width:86px;height:86px;border-radius:12px;object-fit:cover}
+    /* Stem player */
+    .stem-player .track{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+    .stem-player .stem-btn{padding:8px 12px;border-radius:8px;border:1px solid #1f2937;background:#151522;color:#e5e7eb;cursor:pointer;min-width:70px}
+    .stem-player .stem-btn:hover{background:#1a1a26}
+    .stem-player .stem-volume{flex:1;min-width:100px}
+    /* About ribbons */
     .about{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:center;border:1px solid #1f2937;border-radius:18px;padding:18px;background:#0f1020}
-    .ab-controls{background:#0b0c18;border:1px solid #1f2937;border-radius:14px;padding:14px}
-    .row{display:flex;align-items:center;gap:12px;margin:8px 0}
-    .row label{min-width:110px;color:#c2cbe0}
-    input[type=range]{width:100%}
-    canvas{width:100%;height:220px;border-radius:12px;background:#0a0b14}
-    footer{color:#94a3b8;font-size:14px;padding:28px 0;text-align:center}
-    .badge{display:inline-block;padding:3px 8px;border-radius:999px;background:#142016;border:1px solid #1f3b2a;color:#a7f3d0;font-size:12px;margin-left:6px}
+    .ribbons{position:relative;height:260px;border-radius:18px;overflow:hidden;border:1px solid #1f2937;background:linear-gradient(180deg,#0c0c14,#0f1020)}
+    .ribbons canvas{position:absolute;inset:0;width:100%;height:100%}
+    .ribbons .overlay{position:absolute;inset:auto 0 0 0;padding:14px;color:#cbd5e1;background:linear-gradient(180deg,transparent,rgba(0,0,0,.35))}
+    .carousel{display:flex;gap:14px;align-items:center}
+    .carousel .thumbs{display:flex;gap:10px;overflow:auto;padding-bottom:6px}
+    .thumb{cursor:pointer;border:1px solid #243144;border-radius:12px;overflow:hidden;min-width:120px;transition:transform .18s}
+    .thumb:hover{transform:translateY(-2px)}
+    .thumb img{display:block;width:120px;height:120px;object-fit:cover}
     @media (max-width:900px){.hero,.about{grid-template-columns:1fr}}
   </style>
 </head>
@@ -55,22 +60,21 @@
         <a href="index.html">Home</a>
         <a href="artists.html">Artists</a>
         <a href="music.html">Music</a>
-</style>
+        <a href="shop.html">Shop</a>
         <a href="#about">About</a>
       </div>
     </nav>
-
     <section class="hero">
       <div>
-        <h1>Where Art Meets Frequency<span class="badge">Interactive</span></h1>
-        <p>NA Collective is <strong>Nascent (Noah Pullen)</strong> and <strong>Hamudi (Ahmed Awad)</strong> — building sound and visuals rooted in Iowa City, since 2018.</p>
+        <h1>Where Art Meets Frequency</h1>
+        <p>NA Collective is <strong>Nascent (Noah Pullen)</strong> and <strong>Hamudi (Ahmed Awad)</strong> — building sound & visuals in Iowa City since 2018.</p>
         <div class="cta">
           <a class="btn accent" href="music.html">Listen Now</a>
           <a class="btn" href="artists.html">Meet the Artists</a>
-          <a class="btn" href="https://open.spotify.com/artist/6ys1HX75sDG7Bf4izo8t6g" target="_blank" rel="noopener">Spotify</a>
+          <a class="btn" href="shop.html">Shop</a>
         </div>
       </div>
-      <div class="card"><img src="images/nascent2.jpeg" alt="Noah Pullen in pink light" /></div>
+      <div class="card"><img src="images/nascent2.jpeg" alt="Noah Pullen portrait" /></div>
     </section>
 
     <h2>Latest Releases</h2>
@@ -89,43 +93,45 @@
       </a>
     </div>
 
-    <h2>Artists</h2>
-    <div class="artists">
-      <div class="artist">
-        <img src="images/nascent2.jpeg" alt="Noah Pullen portrait" />
-        <div>
-          <strong>Noah Pullen (Nascent)</strong>
-          <div class="sub">Producer/Artist. Pink-light precision, detail-obsessed.</div>
-        </div>
+    <!-- Stem Player Section -->
+    <h2>Stem Player — Mix It Up</h2>
+    <section class="stem-player" style="border:1px solid #1f2937;border-radius:18px;padding:16px;background:#10101a;margin-bottom:32px">
+      <p class="sub">Toggle each stem to create your own mix. Adjust volumes to balance the drum, bass and melody stems. This demo uses simple tones in place of real stems.</p>
+      <div class="track" data-index="0">
+        <button class="stem-btn" type="button">▶ Drum</button>
+        <label style="color:#cbd5e1;font-size:14px">Volume</label>
+        <input class="stem-volume" type="range" min="0" max="100" value="30" />
       </div>
-      <div class="artist">
-        <img src="images/hamudi1.jpeg" alt="Ahmed Awad portrait" />
-        <div>
-          <strong>Ahmed Awad (Hamudi)</strong>
-          <div class="sub">Vocalist/Artist. Smoke-smooth cadences and intent.</div>
-        </div>
+      <div class="track" data-index="1">
+        <button class="stem-btn" type="button">▶ Bass</button>
+        <label style="color:#cbd5e1;font-size:14px">Volume</label>
+        <input class="stem-volume" type="range" min="0" max="100" value="30" />
       </div>
-    </div>
+      <div class="track" data-index="2">
+        <button class="stem-btn" type="button">▶ Melody</button>
+        <label style="color:#cbd5e1;font-size:14px">Volume</label>
+        <input class="stem-volume" type="range" min="0" max="100" value="30" />
+      </div>
+    </section>
 
-    <h2 id="about">About — Frequency Lab</h2>
+    <h2 id="about">About — Visual Ribbons</h2>
     <section class="about">
       <div>
-        <p class="sub">We grew into a collective in <strong>2018</strong>, collaborating in Iowa City with artists like <strong>SidTiva</strong> and <strong>M.E.D.</strong> Our work bends language, geometry, and sound into intention. Try the lab → tune a frequency, watch the visual respond.</p>
-        <div class="ab-controls">
-          <div class="row">
-            <label for="freq">Frequency (Hz)</label>
-            <input id="freq" type="range" min="80" max="1200" value="432" />
-            <span id="fread" class="sub">432 Hz</span>
+        <p class="sub">Formed in <strong>2018</strong> in Iowa City. Collaborations include <strong>SidTiva</strong> and <strong>M.E.D.</strong> NA Collective experiments where design, cadence and structure meet. The lab is now visual: drag the carousel to explore art direction; the background ribbons move organically with your cursor.</p>
+        <div class="carousel">
+          <div class="thumbs">
+            <div class="thumb"><img src="images/take_my_time.jpeg" alt="Take My Time art"></div>
+            <div class="thumb"><img src="images/dominoes.jpeg" alt="Dominoes art"></div>
+            <div class="thumb"><img src="images/limitless_pursuit.png" alt="Limitless Pursuit art"></div>
+            <div class="thumb"><img src="images/hamudi1.jpeg" alt="Hamudi portrait"></div>
+            <div class="thumb"><img src="images/nascent2.jpeg" alt="Noah portrait"></div>
           </div>
-          <div class="row">
-            <label for="gain">Intensity</label>
-            <input id="gain" type="range" min="0" max="100" value="30" />
-            <span id="gread" class="sub">0.30</span>
-          </div>
-          <button id="toggle" class="btn" type="button">▶ Play Tone</button>
         </div>
       </div>
-      <canvas id="scope" width="900" height="260" aria-label="Oscilloscope visualization"></canvas>
+      <div class="ribbons">
+        <canvas id="fx"></canvas>
+        <div class="overlay sub">Move your cursor—ribbons react</div>
+      </div>
     </section>
 
     <footer>© <span id="yr"></span> NA Collective • Iowa City</footer>
@@ -135,77 +141,80 @@
     // Year
     document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // WebAudio + simple oscilloscope
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    let ctx, osc, gain, running = false;
-
-    const f = document.getElementById('freq');
-    const g = document.getElementById('gain');
-    const fr = document.getElementById('fread');
-    const gr = document.getElementById('gread');
-    const btn = document.getElementById('toggle');
-
-    const canvas = document.getElementById('scope');
-    const c = canvas.getContext('2d');
-    const analyser = new (window.AudioContext || window.webkitAudioContext)().createAnalyser();
-    analyser.fftSize = 2048;
-
-    function updateLabels(){
-      fr.textContent = f.value + ' Hz';
-      gr.textContent = (g.value/100).toFixed(2);
-    }
-    updateLabels();
-
-    function start(){
-      if (running) return;
-      ctx = new AudioCtx();
-      osc = ctx.createOscillator();
-      gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.value = +f.value;
-      gain.gain.value = g.value/100;
-      osc.connect(gain).connect(ctx.destination);
-
-      // analyser for viz
-      const tap = ctx.createGain();
-      osc.connect(tap);
-      const ana = ctx.createAnalyser();
-      ana.fftSize = 1024;
-      tap.connect(ana);
-
-      osc.start();
-      running = true;
-      btn.textContent = '⏸ Pause Tone';
-
-      // draw
-      const data = new Uint8Array(ana.frequencyBinCount);
-      (function draw(){
-        if(!running) return;
-        requestAnimationFrame(draw);
-        ana.getByteTimeDomainData(data);
-        c.clearRect(0,0,canvas.width,canvas.height);
-        c.strokeStyle = '#7ee787'; c.lineWidth = 2; c.beginPath();
-        const mid = canvas.height/2;
-        for(let x=0;x<canvas.width;x++){
-          const idx = Math.floor(x / canvas.width * data.length);
-          const y = ((data[idx]-128)/128) * (canvas.height*0.4) + mid;
-          x===0 ? c.moveTo(x,y) : c.lineTo(x,y);
+    // Stem player implementation
+    (function(){
+      let audioCtx;
+      const tracks = [];
+      const configs = [
+        {freq:120, type:'sine', pattern:true},
+        {freq:60, type:'sawtooth', pattern:false},
+        {freq:440, type:'square', pattern:false}
+      ];
+      document.querySelectorAll('.stem-player .track').forEach((row, idx) => {
+        const btn = row.querySelector('.stem-btn');
+        const vol = row.querySelector('.stem-volume');
+        btn.addEventListener('click', () => toggle(idx));
+        vol.addEventListener('input', () => setVolume(idx, vol.value));
+        tracks[idx] = {playing:false, gainVal: vol.value/100, gainNode:null, osc:null, timer:null};
+      });
+      function initAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+      function toggle(i){ initAudio(); const t = tracks[i]; const cfg = configs[i];
+        if(!t.playing){
+          t.playing = true;
+          document.querySelectorAll('.stem-player .track')[i].querySelector('.stem-btn').textContent = '⏸ ' + (i===0?'Drum':i===1?'Bass':'Melody');
+          t.gainNode = audioCtx.createGain();
+          t.gainNode.gain.value = t.gainVal;
+          if(cfg.pattern){
+            t.timer = setInterval(() => {
+              const osc = audioCtx.createOscillator();
+              const gn = audioCtx.createGain();
+              osc.type = cfg.type; osc.frequency.value = cfg.freq;
+              gn.gain.setValueAtTime(1, audioCtx.currentTime);
+              gn.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+              osc.connect(gn).connect(t.gainNode).connect(audioCtx.destination);
+              osc.start(); osc.stop(audioCtx.currentTime + 0.12);
+            }, 500);
+          } else {
+            t.osc = audioCtx.createOscillator();
+            t.osc.type = cfg.type; t.osc.frequency.value = cfg.freq;
+            t.osc.connect(t.gainNode).connect(audioCtx.destination);
+            t.osc.start();
+          }
+        } else {
+          t.playing = false;
+          document.querySelectorAll('.stem-player .track')[i].querySelector('.stem-btn').textContent = '▶ ' + (i===0?'Drum':i===1?'Bass':'Melody');
+          if(t.osc){ t.osc.stop(); t.osc.disconnect(); t.osc = null; }
+          if(t.timer){ clearInterval(t.timer); t.timer = null; }
+          if(t.gainNode){ t.gainNode.disconnect(); t.gainNode = null; }
         }
-        c.stroke();
-      })();
-    }
+      }
+      function setVolume(i,val){ const t=tracks[i]; t.gainVal = val/100; if(t.gainNode) t.gainNode.gain.value = t.gainVal; }
+    })();
 
-    function stop(){
-      if(!running) return;
-      osc.stop(); ctx.close();
-      running = false;
-      btn.textContent = '▶ Play Tone';
-      c.clearRect(0,0,canvas.width,canvas.height);
-    }
-
-    f.addEventListener('input', ()=>{ updateLabels(); if(osc) osc.frequency.value = +f.value; });
-    g.addEventListener('input', ()=>{ updateLabels(); if(gain) gain.gain.value = g.value/100; });
-    btn.addEventListener('click', ()=> running ? stop() : start());
+    // Generative ribbon FX
+    (function(){
+      const canvas = document.getElementById('fx');
+      const ctx = canvas.getContext('2d');
+      let w, h, t = 0, mx = 0.5, my = 0.5;
+      function resize(){ w = canvas.width = canvas.clientWidth; h = canvas.height = canvas.clientHeight; }
+      window.addEventListener('resize', resize); resize();
+      canvas.addEventListener('pointermove', (e)=>{ const r = canvas.getBoundingClientRect(); mx=(e.clientX-r.left)/w; my=(e.clientY-r.top)/h; });
+      function loop(){ t += 0.008; ctx.clearRect(0,0,w,h);
+        for(let i=0;i<5;i++){
+          const y0 = h*(0.15+i*0.18 + 0.05*Math.sin(t+i));
+          ctx.beginPath(); ctx.moveTo(0,y0);
+          for(let x=0;x<=w;x+=8){
+            const k = (i+1)*0.7, phase = t*2 + x*0.01*k + mx*2 - my*2;
+            const y = y0 + Math.sin(phase)*12 + Math.cos(phase*0.5)*6;
+            ctx.lineTo(x,y);
+          }
+          const grad = ctx.createLinearGradient(0,y0,w,y0);
+          grad.addColorStop(0,'#14b8a6'); grad.addColorStop(1,'#7ee787');
+          ctx.strokeStyle = grad; ctx.lineWidth = 2 + i*0.6; ctx.globalAlpha = 0.9 - i*0.12; ctx.stroke();
+        }
+        requestAnimationFrame(loop);
+      } loop();
+    })();
   </script>
 </body>
 </html>
