@@ -61,6 +61,7 @@
         <a href="artists.html">Artists</a>
         <a href="music.html">Music</a>
         <a href="shop.html">Shop</a>
+        <a href="submit.html">Submit</a>
         <a href="#about">About</a>
       </div>
     </nav>
@@ -96,21 +97,25 @@
     <!-- Stem Player Section -->
     <h2>Stem Player — Mix It Up</h2>
     <section class="stem-player" style="border:1px solid #1f2937;border-radius:18px;padding:16px;background:#10101a;margin-bottom:32px">
-      <p class="sub">Toggle each stem to create your own mix. Adjust volumes to balance the drum, bass and melody stems. This demo uses simple tones in place of real stems.</p>
+      <p class="sub">Toggle each stem to create your own mix. Adjust volumes to balance the drum, bass and melody stems. Replace the placeholder audio files in the <code>audio</code> folder with your own loops for a true stem experience.</p>
+      <!-- Each track includes an audio element with looping enabled.  Replace the src paths with your own stems (e.g. mp3, wav). -->
       <div class="track" data-index="0">
         <button class="stem-btn" type="button">▶ Drum</button>
         <label style="color:#cbd5e1;font-size:14px">Volume</label>
-        <input class="stem-volume" type="range" min="0" max="100" value="30" />
+        <input class="stem-volume" type="range" min="0" max="100" value="50" />
+        <audio id="stem0" src="audio/drum.mp3" loop></audio>
       </div>
       <div class="track" data-index="1">
         <button class="stem-btn" type="button">▶ Bass</button>
         <label style="color:#cbd5e1;font-size:14px">Volume</label>
-        <input class="stem-volume" type="range" min="0" max="100" value="30" />
+        <input class="stem-volume" type="range" min="0" max="100" value="50" />
+        <audio id="stem1" src="audio/bass.mp3" loop></audio>
       </div>
       <div class="track" data-index="2">
         <button class="stem-btn" type="button">▶ Melody</button>
         <label style="color:#cbd5e1;font-size:14px">Volume</label>
-        <input class="stem-volume" type="range" min="0" max="100" value="30" />
+        <input class="stem-volume" type="range" min="0" max="100" value="50" />
+        <audio id="stem2" src="audio/melody.mp3" loop></audio>
       </div>
     </section>
 
@@ -141,54 +146,37 @@
     // Year
     document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // Stem player implementation
+    // Stem player implementation using audio loops.  Each track references
+    // an <audio> element defined in the markup.  Replace the src paths in the
+    // HTML with your own stems (mp3/wav files) to provide real loops.
     (function(){
-      let audioCtx;
+      const names = ['Drum','Bass','Melody'];
       const tracks = [];
-      const configs = [
-        {freq:120, type:'sine', pattern:true},
-        {freq:60, type:'sawtooth', pattern:false},
-        {freq:440, type:'square', pattern:false}
-      ];
       document.querySelectorAll('.stem-player .track').forEach((row, idx) => {
         const btn = row.querySelector('.stem-btn');
         const vol = row.querySelector('.stem-volume');
-        btn.addEventListener('click', () => toggle(idx));
-        vol.addEventListener('input', () => setVolume(idx, vol.value));
-        tracks[idx] = {playing:false, gainVal: vol.value/100, gainNode:null, osc:null, timer:null};
-      });
-      function initAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-      function toggle(i){ initAudio(); const t = tracks[i]; const cfg = configs[i];
-        if(!t.playing){
-          t.playing = true;
-          document.querySelectorAll('.stem-player .track')[i].querySelector('.stem-btn').textContent = '⏸ ' + (i===0?'Drum':i===1?'Bass':'Melody');
-          t.gainNode = audioCtx.createGain();
-          t.gainNode.gain.value = t.gainVal;
-          if(cfg.pattern){
-            t.timer = setInterval(() => {
-              const osc = audioCtx.createOscillator();
-              const gn = audioCtx.createGain();
-              osc.type = cfg.type; osc.frequency.value = cfg.freq;
-              gn.gain.setValueAtTime(1, audioCtx.currentTime);
-              gn.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-              osc.connect(gn).connect(t.gainNode).connect(audioCtx.destination);
-              osc.start(); osc.stop(audioCtx.currentTime + 0.12);
-            }, 500);
+        const audio = row.querySelector('audio');
+        tracks[idx] = { audio, playing:false };
+        btn.addEventListener('click', () => {
+          const t = tracks[idx];
+          if(!t.playing){
+            t.playing = true;
+            // set volume based on current slider
+            audio.volume = vol.value/100;
+            // restart from beginning
+            audio.currentTime = 0;
+            audio.play();
+            btn.textContent = '⏸ ' + names[idx];
           } else {
-            t.osc = audioCtx.createOscillator();
-            t.osc.type = cfg.type; t.osc.frequency.value = cfg.freq;
-            t.osc.connect(t.gainNode).connect(audioCtx.destination);
-            t.osc.start();
+            t.playing = false;
+            audio.pause();
+            btn.textContent = '▶ ' + names[idx];
           }
-        } else {
-          t.playing = false;
-          document.querySelectorAll('.stem-player .track')[i].querySelector('.stem-btn').textContent = '▶ ' + (i===0?'Drum':i===1?'Bass':'Melody');
-          if(t.osc){ t.osc.stop(); t.osc.disconnect(); t.osc = null; }
-          if(t.timer){ clearInterval(t.timer); t.timer = null; }
-          if(t.gainNode){ t.gainNode.disconnect(); t.gainNode = null; }
-        }
-      }
-      function setVolume(i,val){ const t=tracks[i]; t.gainVal = val/100; if(t.gainNode) t.gainNode.gain.value = t.gainVal; }
+        });
+        vol.addEventListener('input', () => {
+          audio.volume = vol.value/100;
+        });
+      });
     })();
 
     // Generative ribbon FX
