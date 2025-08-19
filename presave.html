@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pre‑save – NA Collective</title>
+  <meta name="description" content="Pre‑save NA Collective releases or join the mailing list for early drops and exclusives." />
+  <style>
+    :root {
+      --bg: #0b0b0f;
+      --card: #12121a;
+      --muted: #9aa3b2;
+      --text: #e8ecf1;
+      --accent: #7ee787;
+      --line: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 500 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+      background: radial-gradient(1200px 600px at 70% -10%, #141424 0%, var(--bg) 60%), var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 24px; }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .brand { display: flex; gap: 12px; align-items: center; }
+    .logo {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: conic-gradient(from 0deg, #7ee787, #2dd4bf, #60a5fa, #a78bfa, #7ee787);
+    }
+    .navlinks a { padding: 10px 14px; border-radius: 10px; color: #cbd5e1; }
+    .navlinks a:hover { background: #151522; }
+    .navlinks a.active { color: var(--accent); font-weight: bold; }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+      overflow: hidden;
+      position: relative;
+    }
+    .pad { padding: 22px; }
+    h1 { margin: 0 0 6px; font-size: 28px; }
+    .sub { color: var(--muted); font-size: 14px; }
+    .ribbons {
+      height: 220px;
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, #0c0c14, #0f1020);
+      position: relative;
+    }
+    .ribbons canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .empty {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: flex-start;
+      margin-top: 18px;
+    }
+    .panel {
+      border: 1px dashed #334155;
+      border-radius: 16px;
+      padding: 16px;
+      background: #0e0f1c;
+    }
+    .panel h2 { margin: 0 0 8px; font-size: 20px; color: var(--accent); }
+    .signup {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .signup input[type="email"] {
+      flex: 1;
+      min-width: 220px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #0b0b14;
+      color: var(--text);
+    }
+    .btn {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #151522;
+      color: #e5e7eb;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn.accent { background: linear-gradient(90deg, #16a34a, #059669); border: 0; }
+    .note { color: #94a3b8; font-size: 12px; margin-top: 6px; }
+    .player { display: none; margin-top: 14px; }
+    .player.show { display: block; }
+    audio { width: 100%; height: 40px; border-radius: 10px; }
+    ul.info { margin: 0; padding-left: 18px; }
+    ul.info li { color: var(--muted); margin-bottom: 6px; font-size: 14px; }
+    @media (max-width: 900px) {
+      .empty { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><div class="logo"></div><strong>NA Collective</strong></div>
+      <div class="navlinks">
+        <a href="index.html">Home</a>
+        <a href="artists.html">Artists</a>
+        <a href="music.html">Music</a>
+        <a href="shop.html">Shop</a>
+        <a href="submit.html">Submit</a>
+        <a href="presave.html" class="active">Pre‑save</a>
+        <a href="index.html#about">About</a>
+      </div>
+    </nav>
+
+    <!-- Hero with ribbons -->
+    <div class="card">
+      <div class="pad">
+        <h1>Pre‑save</h1>
+        <p class="sub">No upcoming releases&nbsp;— join the list to get early snippets when new music drops.</p>
+      </div>
+      <div class="ribbons"><canvas id="fx"></canvas></div>
+    </div>
+
+    <!-- Panels: Email signup & description of pre‑save process -->
+    <div class="empty">
+      <div class="panel">
+        <h2>Join the mailing list</h2>
+        <p class="sub">Sign up and you’ll be notified when pre‑save links go live. You’ll also unlock exclusive snippets here.</p>
+        <form class="signup" action="https://formspree.io/f/xanbzryd" method="POST">
+          <input type="email" name="email" placeholder="Enter your email" required aria-label="Email for NA Collective updates" />
+          <!-- Formspree redirect back to this page with unlock flag -->
+          <input type="hidden" name="_redirect" value="https://na-collective.vercel.app/presave.html?unlock=1" />
+          <button class="btn accent" type="submit">Notify Me</button>
+        </form>
+        <div class="note">Low‑volume, high‑signal emails. Unsubscribe anytime.</div>
+
+        <!-- Hidden snippet player; unlocked via ?unlock=1 or stored flag -->
+        <div id="player" class="player">
+          <strong>Exclusive Snippet</strong>
+          <audio id="snippet" controls preload="auto" src="audio/snippet.mp3"></audio>
+          <div class="note">If audio doesn’t start automatically, press play (some browsers require a tap).</div>
+        </div>
+
+        <!-- Manual unlock (for users who have already signed up) -->
+        <div style="margin-top: 8px">
+          <button id="manualUnlock" class="btn" type="button">I already signed up — unlock</button>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>How pre‑save works</h2>
+        <ul class="info">
+          <li>When a new drop is announced, Spotify/Apple pre‑save buttons will appear here.</li>
+          <li>After you pre‑save (or sign up), a hidden snippet unlocks automatically and stays unlocked on return.</li>
+          <li>If the redirect fails, click the manual unlock button above.</li>
+        </ul>
+        <div style="margin-top: 10px">
+          <a class="btn" href="music.html">Explore our music</a>
+          <a class="btn" href="artists.html" style="margin-left: 8px">Meet the artists</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Generative ribbon background using Canvas
+    const canvas = document.getElementById('fx');
+    const ctx = canvas.getContext('2d');
+    let w, h, t = 0, mx = 0.5, my = 0.5;
+    function resize() { w = canvas.width = canvas.clientWidth; h = canvas.height = canvas.clientHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+    canvas.addEventListener('pointermove', (e) => {
+      const r = canvas.getBoundingClientRect();
+      mx = (e.clientX - r.left) / w;
+      my = (e.clientY - r.top) / h;
+    });
+    function draw() {
+      t += 0.01;
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < 5; i++) {
+        const y0 = h * (0.15 + i * 0.18 + 0.05 * Math.sin(t + i));
+        ctx.beginPath();
+        ctx.moveTo(0, y0);
+        for (let x = 0; x <= w; x += 8) {
+          const k = (i + 1) * 0.7;
+          const phase = t * 2 + x * 0.01 * k + mx * 2 - my * 2;
+          const y = y0 + Math.sin(phase) * 12 + Math.cos(phase * 0.5) * 6;
+          ctx.lineTo(x, y);
+        }
+        const grad = ctx.createLinearGradient(0, y0, w, y0);
+        grad.addColorStop(0, '#14b8a6');
+        grad.addColorStop(1, '#7ee787');
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2 + i * 0.6;
+        ctx.globalAlpha = 0.9 - i * 0.12;
+        ctx.stroke();
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    // Unlock logic based on query param or localStorage
+    const params = new URLSearchParams(window.location.search);
+    const playerDiv = document.getElementById('player');
+    const audioEl = document.getElementById('snippet');
+    function showPlayer() {
+      playerDiv.classList.add('show');
+      localStorage.setItem('na_presave_unlocked', 'true');
+      try { audioEl.play(); } catch (e) { /* user gesture required */ }
+    }
+    if (params.get('unlock') === '1' || localStorage.getItem('na_presave_unlocked') === 'true') {
+      showPlayer();
+    }
+    document.getElementById('manualUnlock').addEventListener('click', showPlayer);
+  </script>
+</body>
+</html>
